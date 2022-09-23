@@ -62,11 +62,11 @@ const fetchRemoteData = () => {
     ])
     .then(data => 
       console.log("all data", data),
-      travelersData = data[0].travelers,
-      console.log("travelersData", travelersData),
-      tripsData = data[1].trips,
-      console.log("tripsdata", tripsData),
-      destinationsData = data[2].destinations
+      // travelersData = data[0].travelers,
+      // console.log("travelersData", travelersData),
+      // tripsData = data[1].trips,
+      // console.log("tripsdata", tripsData),
+      // destinationsData = data[2].destinations
       )
 }
 fetchRemoteData()
