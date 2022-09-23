@@ -1,35 +1,27 @@
 // GETS //
 const fetchAllTravelers = () => {
-  const allTravelersData = fetch('http://localhost:3001/api/v1/travelers')
+  return fetch('http://localhost:3001/api/v1/travelers')
   .then(response => response.json())
-  .then(data => data.travelers)
   .catch(err => console.log('fetchAllTravelers.err:', err))
-  return allTravelersData
 }
 
 const fetchSingleTravelerByID = (id) => {
   const urlPlusID = 'http://localhost:3001/api/v1/travelers/' + id
-  const singleTravelerData = fetch(urlPlusID)
+  return fetch(urlPlusID)
   .then(response => response.json())
-  .then(data => data.results)
   .catch(err => console.log('fetchSingleTravelerByID.err:', err))
-  return singleTravelerData
 }
 
 const fetchAllTrips = () => {
-  const allTripsData = fetch('http://localhost:3001/api/v1/trips')
+  return fetch('http://localhost:3001/api/v1/trips')
   .then(response => response.json())
-  .then(data => data.trips)
-  .catch(err => console.log('fetchAllTrips.err:', err))
-  return allTripsData
+  .catch(err => console.log('fetchAllTrips.err:', err)) 
 }
 
 const fetchAllDestinations = () => {
-  const allDestinationsData = fetch('http://localhost:3001/api/v1/destinations')
+  return fetch('http://localhost:3001/api/v1/destinations')
   .then(response => response.json())
-  .then(data => data.destinations)
   .catch(err => console.log('fetchAllDestinations.err:', err))
-  return allDestinationsData
 }
 
 // POSTS //
