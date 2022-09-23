@@ -13,6 +13,28 @@ import {
   postDeleteTrip
 } from "./APIcalls";
 
+const signInPopUp = document.getElementById("sign-in-screen")
+const userNameInput = document.getElementById("username-input")
+console.log(userNameInput.value);
+const signInButton = document.getElementById("sign-in-button")
+signInButton.addEventListener('click', signInAttempt)
+const signInAttempt = () => {
+  console.log("input", userNameInput.values);
+  signInPopUp.remove()
+
+}
+
+console.log("TEST");
+
+const signIn = () => {
+
+}
+
+
+
+
+
+
 // An example of how you tell webpack to use an image
 // (also need to link to it in the index.html)
 import './images/turing-logo.png'
@@ -62,11 +84,11 @@ const fetchRemoteData = () => {
     ])
     .then(data => 
       console.log("all data", data),
-      // travelersData = data[0].travelers,
-      // console.log("travelersData", travelersData),
-      // tripsData = data[1].trips,
-      // console.log("tripsdata", tripsData),
-      // destinationsData = data[2].destinations
+      travelersData = data[0].travelers,
+      console.log("travelersData", travelersData),
+      tripsData = data[1].trips,
+      console.log("tripsdata", tripsData),
+      destinationsData = data[2].destinations
       )
 }
 fetchRemoteData()

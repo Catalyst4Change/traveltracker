@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Tracker</title>
+</head>
+<body>
+  <!-- <img src="./images/turing-logo.png" alt="turing logo"> -->
+  
+  <!-- sign in overlay -->
+  <section id="sign-in-screen" class="center">
+    <h1 id="sign-in-title">TravelCo. Travel Co.</h1>
+    <form id="sign-in-form" class="center">
+      <p>Please sign-in to continue.</p> 
+      <p>Username:</p>
+      <input class="sign-in-input" id="username-input" type="text" placeholder="Username">
+      <p>Password:</p>
+      <input class="sign-in-input" id="password.input" type="text">
+      <button type="button" id="sign-in-button">SIGN-IN</button>
+      <h2 id="sign-in-feedback"></h2>
+    </form>
+  </section>
+
+  <!-- main section -->
+
+  <main class="">
+    <section id="user-info-pane" class="display-section">
+      <h1>user info</h1>
+      <article id="user-info-display">user info display</article>
+    </section>
+
+    <section id="request-pane" class="display-section">
+      <h1>trip requests</h1>
+      <article id="trip-requests-display">user info display</article>
+    </section>
+    
+    <section id="display-pane" class="display-section">trip display
+      <h1>trip display</h1>
+      <article id="trips-display">user info display</article>
+    </section>
+  </main>
+
+  <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
+  <script src="bundle.js"></script>
+
+</body>
+</html>
