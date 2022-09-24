@@ -42,3 +42,15 @@ main {
 .hidden {
   display: none;
 }
+
+.destination-image {
+  height: 20vh;
+}
+
+article {
+  background-color: black;
+  width: auto;
+  height: 50vh;
+  padding: 5vw;
+  margin: 1vw;
+}

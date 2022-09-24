@@ -3,72 +3,88 @@
 
 // An example of how you tell webpack to use a CSS (SCSS) file
 import './css/styles.css';
+import './images/turing-logo.png'
 import { 
-  fetchAllTravelers,
   fetchSingleTravelerByID,
   fetchAllTrips,
   fetchAllDestinations,
-  postNewTrip,
-  postNewDestination,
-  postDeleteTrip
 } from "./APIcalls";
-
+import Traveler from './Traveler';
+import Trip from './Trip';
 
 
 
 
 // An example of how you tell webpack to use an image
 // (also need to link to it in the index.html)
-import './images/turing-logo.png'
 
 
 // global variables //
-let singleTravelerData
-let tripsData
+let currentTraveler
+let currentUsersTripsData
 let destinationsData
+let currentTravelersTrips
 
 // temporary post data //
-const findByID = 7
+const fakeUserID = 7
 
-const newTrip = {
-  id: 420, 
-  userID: 69, 
-  destinationID: 13, 
-  travelers: 6, 
-  date: "2022/09/22", 
-  duration: 10, 
-  status: 'approved', 
-  suggestedActivities: ["drinkin", "smokin", "layin low"]
+const tripDisplayPane = document.getElementById('display-pane')
+/*
+
+*/
+const showAllTrips = (trips) => {
+  trips.forEach(trip => {
+    const destination = destinationsData.find(dest => dest.id === trip.destinationID)
+    tripDisplayPane.innerHTML += `
+    <article>
+        <img class="destination-image" 
+        src="${destination.image}" 
+        alt="${destination.alt}">
+        <h3>${destination.destination}</h3>
+        <p>Date: ${trip.date}</p>
+        <p>${trip.duration} Days</p>
+        <p>Travelers: ${trip.travelers}</p>
+        <p>Reference number: ${trip.id}</p>
+        <p>Status: ${trip.status}</p>
+        <p>${trip.suggestedActivities}</p>
+      </article>
+    `
+  })
+  // trips.reduce((acc,trip) => {
+  //   acc += "Destination: " + destinationsData.find(dest => dest.id === trip.destinationID).destination
+  //   console.log(acc)
+  //   return acc
+  // },"")
 }
 
-const newDestination = {
-  id: 51, 
-  destination: "The Goddamn Moon", 
-  estimatedLodgingCostPerDay: 10000, 
-  estimatedFlightCostPerPerson: 100000, 
-  image: "src/images/turing-logo.png", 
-  alt: "words words words"
+
+const populateTravelerDashboard = () => {
+  showAllTrips(currentTravelersTrips)
+  
+  // const annualTripExpense = currentTraveler.calculateAnnualTripExpenses(currentUsersTripsData)
+  // add to dom
 }
-
-const deleteTrip = 25
-
 // fetch calls
 
 const fetchRemoteData = () => {
   Promise.all([
-    fetchSingleTravelerByID(findByID),
+    fetchSingleTravelerByID(fakeUserID),
     fetchAllTrips(),
     fetchAllDestinations(),
     ])
     .then(data => {
-      console.log("all data", data)
-      singleTravelerData = data[0]
-      console.log("travelersData", singleTravelerData)
-      tripsData = data[1].trips
-      console.log("tripsdata", tripsData)
+      currentTraveler = new Traveler(data[0])
+      currentTravelersTrips = data[1].trips.filter(trip => trip.userID === fakeUserID)
+      console.log(currentTravelersTrips)
+      currentUsersTripsData = currentTravelersTrips.map(trip => new Trip(trip))
       destinationsData = data[2].destinations
     })
+    .then(() => {
+      // call dom manipulators
+      populateTravelerDashboard()
+    })
 }
-fetchRemoteData()
+window.addEventListener('load', fetchRemoteData)
+
 
 // fetch calls
