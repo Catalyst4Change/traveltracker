@@ -28,10 +28,22 @@ let currentTravelersTrips
 // temporary post data //
 const fakeUserID = 7
 
+const userInfoPane = document.getElementById('user-info-pane')
 const tripDisplayPane = document.getElementById('display-pane')
 /*
 
 */
+const displayTravelerInfo = (currentTraveler) => {
+  
+  userInfoPane.innerHTML += `
+    <article>
+      <h2>${currentTraveler.name}</h2>
+      <p>Travel expenses this year:</p>
+    </article>
+  `
+  console.log(currentTraveler);
+}
+
 const showAllTrips = (trips) => {
   trips.forEach(trip => {
     const destination = destinationsData.find(dest => dest.id === trip.destinationID)
@@ -60,8 +72,8 @@ const showAllTrips = (trips) => {
 
 const populateTravelerDashboard = () => {
   showAllTrips(currentTravelersTrips)
-  
-  // const annualTripExpense = currentTraveler.calculateAnnualTripExpenses(currentUsersTripsData)
+  displayTravelerInfo(currentTraveler)
+  const annualTripExpense = currentTraveler.calculateAnnualTripExpenses(currentTravelersTrips, destinationsData)
   // add to dom
 }
 // fetch calls
