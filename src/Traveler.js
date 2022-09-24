@@ -4,25 +4,37 @@ class Traveler {
     this.name = name
     this.travelerType = travelerType
   }
+  calculateAnnualTripExpenses(trips, destinations) {
+    return trips.reduce((acc,trip) => {
+      const dest = destinations.find(destination => destination.id === trip.destinationID)
+      acc += (dest.estimatedLodgingCostPerDay * trip.duration) 
+      + (dest.estimatedFlightCostPerPerson * trip.travelers)
+      return acc
+    },0)
+  }
+
+  submitTripRequest() {
+
+  }
 
 
+  /*
+  I should be able to make a trip request:
+  I will select a date, duration, number of travelers and choose from a list of destinations
+  iterate thru destinations
+  += dest.name to destinations selector tag
+  * rcv input from html 
 
 
-/*
-find trips taken in the last year
-split trips.date  
-sort by year [0]
-*/
-calculateAnnualTripExpenses(trips, destinations) {
-  return trips.reduce((acc,trip) => {
-    const dest = destinations.find(destination => destination.id === trip.destinationID)
-    acc += (dest.estimatedLodgingCostPerDay * trip.duration) 
-    + (dest.estimatedFlightCostPerPerson * trip.travelers)
-    return acc
-  },0)
-}
+  After making these selections, I should see an estimated cost (with a 10% travel agent fee) for the trip.
+  * return cost calculateTripExpenses
+    
+  Once I submit the trip request, it will show on my dashboard as “pending” so that the travel agency can approve or deny it.
+  * create new trip instance w data
+    assign status:pending
 
 
+  */
 
 
 

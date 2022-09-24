@@ -1,23 +1,13 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-// An example of how you tell webpack to use a CSS (SCSS) file
-import './css/styles.css';
+// imports // *include images
+import './css/styles.css'
 import './images/turing-logo.png'
 import { 
   fetchSingleTravelerByID,
   fetchAllTrips,
   fetchAllDestinations,
-} from "./APIcalls";
-import Traveler from './Traveler';
-import Trip from './Trip';
-
-
-
-
-// An example of how you tell webpack to use an image
-// (also need to link to it in the index.html)
-
+} from "./APIcalls"
+import Traveler from './Traveler'
+import Trip from './Trip'
 
 // global variables //
 let currentTraveler
@@ -28,28 +18,55 @@ let currentTravelersTrips
 // temporary post data //
 const fakeUserID = 7
 
+// dom getters
 const userInfoPane = document.getElementById('user-info-pane')
-const tripDisplayPane = document.getElementById('display-pane')
-/*
+const tripRequestPane = document.getElementById('trip-request-pane')
 
-*/
+const tripDisplayPane = document.getElementById('display-pane')
+const tripRequestSubmitButton = document.getElementById('submit-trip-request-input')
+const destinationsSelect = document.getElementById('destinations-select')
+
+const elementName = document.getElementById('element-name')
+
+// event listeners
+// tripRequestSubmitButton.addEventListener('click', currentTraveler.submitTripRequest)
+
+const today = () => {
+  let today = new Date()
+  const dd = String(today.getDate()).padStart(2, '0')
+  const mm = String(today.getMonth() + 1).padStart(2, '0') //January is 0!
+  const yyyy = today.getFullYear()
+
+  today = yyyy + '/' + dd + '/' + mm
+  return today
+}
+
 const displayTravelerInfo = (currentTraveler, annualTripExpense) => {
-  
   userInfoPane.innerHTML += `
     <article>
-      <h2>${currentTraveler.name}</h2>
-      <p>Travel expenses this year: $${annualTripExpense}</p>
+      <h1>${currentTraveler.name}</h1>
+      <h3>Travel expenses this year: $${annualTripExpense}*</h3>
+      <p>*Includes $${Math.round(annualTripExpense/10)} paid to your travel agent.</p>
     </article>
   `
+}
+
+const populateTripRequestForm = (destinationsData) => {
+  let destinationsAlphabetical = destinationsData.sort((a,b) => b.destination < a.destination) 
+
+  destinationsAlphabetical.forEach(dest => {
+    destinationsSelect.innerHTML += `
+  <option value="${dest.id}">${dest.destination}</option>
+  `
+  })
 }
 
 const displayTotalTravelExpenses = () => {
   annualTripExpense
 }
 
-
 const displayAllTrips = (trips) => {
-  trips.forEach(trip => {
+  trips.sort((a,b) => b.numericDate - a.numericDate).forEach(trip => {
     const destination = destinationsData.find(dest => dest.id === trip.destinationID)
     tripDisplayPane.innerHTML += `
     <article>
@@ -68,12 +85,11 @@ const displayAllTrips = (trips) => {
   })
 }
 
-
-
 const populateTravelerDashboard = () => {
   const annualTripExpense = currentTraveler.calculateAnnualTripExpenses(currentTravelersTrips, destinationsData)
-  displayAllTrips(currentTravelersTrips)
+  displayAllTrips(currentUsersTripsData)
   displayTravelerInfo(currentTraveler, annualTripExpense)
+  populateTripRequestForm(destinationsData)
   // add to dom
 }
 // fetch calls
@@ -87,7 +103,6 @@ const fetchRemoteData = () => {
     .then(data => {
       currentTraveler = new Traveler(data[0])
       currentTravelersTrips = data[1].trips.filter(trip => trip.userID === fakeUserID)
-      console.log(currentTravelersTrips)
       currentUsersTripsData = currentTravelersTrips.map(trip => new Trip(trip))
       destinationsData = data[2].destinations
     })

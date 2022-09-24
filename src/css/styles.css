@@ -1,9 +1,34 @@
+/* major elements */
+
 body {
   display: flex;
   background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
   background-color: black;
   color: hotpink;
 }
+
+main {
+  display: flex;
+  flex-direction: column;
+  column-gap: 2vw;
+  column-count: 2;
+  column-width: auto;
+  height: 100vw;
+}
+
+section {
+border: 1px solid white;
+}
+
+article {
+  background-color: black;
+  width: auto;
+  height: auto;
+  padding: 5vw;
+  margin: 1vw;
+}
+
+/* minor elements */
 
 #sign-in-screen {
   background-color: indigo;
@@ -16,21 +41,6 @@ body {
   min-width: fit-content;
 }
 
-.center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-main {
-  display: flex;
-  flex-direction: column;
-  column-gap: 2vw;
-  column-count: 2;
-  column-width: auto;
-  height: 100vw;
-}
-
 .display-section {
   background-color: black;
   width: auto;
@@ -39,18 +49,18 @@ main {
   margin: 1vw;
 }
 
-.hidden {
-  display: none;
-}
-
 .destination-image {
   height: 20vh;
 }
 
-article {
-  background-color: black;
-  width: auto;
-  height: 50vh;
-  padding: 5vw;
-  margin: 1vw;
+/* aspects */
+
+.hidden {
+  display: none !important;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

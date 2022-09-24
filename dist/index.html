@@ -18,7 +18,7 @@
       <input class="sign-in-input" id="username-input" type="text" placeholder="Username">
       <p>Password:</p>
       <input class="sign-in-input" id="password.input" type="text" placeholder="Password">
-      <button type="button" id="sign-in-button">SIGN-IN</button>
+      <input type="submit" id="sign-in-input">SIGN-IN</input>
       <h2 id="sign-in-feedback"></h2>
     </form>
   </section>
@@ -29,7 +29,23 @@
     <section id="user-info-pane" class="display-section">
     </section>
 
-    <section id="request-pane" class="display-section">
+    <section id="trip-request-pane" class="display-section">
+      <form id="trip-request-form" class="center">
+        <p>Request New Trip</p>
+        <label for="start">Start date:</label>
+        <input type="date" id="start" name="trip-start" min="${today}">
+        <label for="duration">Days of travel:</label>
+        <input type="number" id="duration" name="duration" step="1" min="1">
+        <label for="travelers">Number of travelers:</label>
+        <input type="number" id="travelers" name="travelers" step="1" min="1">
+        <label for="destinations-select">Select destination:</label>
+        <!-- hide/show -->
+        <select id="destinations-select" name="places" size="1">
+          <option value="0">Choose a destination</option>
+        </select>
+        <button type="button" id="submit-trip-request-button">submit request</button>
+
+      </form>
     </section>
     
     <section id="display-pane" class="display-section">
