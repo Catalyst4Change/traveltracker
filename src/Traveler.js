@@ -20,10 +20,10 @@ class Traveler {
 
   /*
   I should be able to make a trip request:
-  I will select a date, duration, number of travelers and choose from a list of destinations
-  iterate thru destinations
-  += dest.name to destinations selector tag
+
   * rcv input from html 
+
+    het destination cost per day * duration
 
 
   After making these selections, I should see an estimated cost (with a 10% travel agent fee) for the trip.

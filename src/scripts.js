@@ -25,6 +25,7 @@ const tripRequestPane = document.getElementById('trip-request-pane')
 const tripDisplayPane = document.getElementById('display-pane')
 const tripRequestSubmitButton = document.getElementById('submit-trip-request-input')
 const destinationsSelect = document.getElementById('destinations-select')
+const numTravelersSelect = document.getElementById('travelers')
 
 const elementName = document.getElementById('element-name')
 
@@ -45,20 +46,52 @@ const displayTravelerInfo = (currentTraveler, annualTripExpense) => {
   userInfoPane.innerHTML += `
     <article>
       <h1>${currentTraveler.name}</h1>
-      <h3>Travel expenses this year: $${annualTripExpense}*</h3>
+      <h3>Travel expenses this year: $${annualTripExpense + Math.round(annualTripExpense/10)}*</h3>
       <p>*Includes $${Math.round(annualTripExpense/10)} paid to your travel agent.</p>
     </article>
   `
 }
 
-const populateTripRequestForm = (destinationsData) => {
-  let destinationsAlphabetical = destinationsData.sort((a,b) => b.destination < a.destination) 
 
+
+
+var select = document.getElementById('destinations-select');
+var value = select.options[select.selectedIndex].value;
+console.log(value);
+
+
+
+const updateTripCost = () => {
+
+  const selectedDest = destinationsData.find(dest => dest.id === parseInt(destinationsSelect.value))
+  const flightCost = selectedDest.estimatedFlightCostPerPerson
+  const perDiem = selectedDest.estimatedLodgingCostPerDay
+  const numDays = tripDuration.value
+  const numTravelers = numTravelersSelect.value
+  estTripCost.innerText = `$${perDiem * numDays + numTravelers * flightCost}`
+}
+const tripDuration = document.getElementById('duration')
+tripRequestPane.addEventListener('change', updateTripCost)
+
+const estTripCost = document.getElementById('estimated-trip-cost')
+
+
+
+
+
+
+const populateTripRequestForm = (destinationsData) => {
+  //populate destinations
+  const destinationsAlphabetical = destinationsData.sort((a,b) => b.destination < a.destination) 
   destinationsAlphabetical.forEach(dest => {
     destinationsSelect.innerHTML += `
   <option value="${dest.id}">${dest.destination}</option>
   `
   })
+  // get input values
+   console.log(tripDuration.value);
+
+
 }
 
 const displayTotalTravelExpenses = () => {
