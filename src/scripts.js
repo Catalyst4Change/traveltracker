@@ -33,18 +33,22 @@ const tripDisplayPane = document.getElementById('display-pane')
 /*
 
 */
-const displayTravelerInfo = (currentTraveler) => {
+const displayTravelerInfo = (currentTraveler, annualTripExpense) => {
   
   userInfoPane.innerHTML += `
     <article>
       <h2>${currentTraveler.name}</h2>
-      <p>Travel expenses this year:</p>
+      <p>Travel expenses this year: $${annualTripExpense}</p>
     </article>
   `
-  console.log(currentTraveler);
 }
 
-const showAllTrips = (trips) => {
+const displayTotalTravelExpenses = () => {
+  annualTripExpense
+}
+
+
+const displayAllTrips = (trips) => {
   trips.forEach(trip => {
     const destination = destinationsData.find(dest => dest.id === trip.destinationID)
     tripDisplayPane.innerHTML += `
@@ -62,18 +66,14 @@ const showAllTrips = (trips) => {
       </article>
     `
   })
-  // trips.reduce((acc,trip) => {
-  //   acc += "Destination: " + destinationsData.find(dest => dest.id === trip.destinationID).destination
-  //   console.log(acc)
-  //   return acc
-  // },"")
 }
 
 
+
 const populateTravelerDashboard = () => {
-  showAllTrips(currentTravelersTrips)
-  displayTravelerInfo(currentTraveler)
   const annualTripExpense = currentTraveler.calculateAnnualTripExpenses(currentTravelersTrips, destinationsData)
+  displayAllTrips(currentTravelersTrips)
+  displayTravelerInfo(currentTraveler, annualTripExpense)
   // add to dom
 }
 // fetch calls

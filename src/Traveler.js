@@ -9,9 +9,18 @@ class Traveler {
 
 
 /*
-find total cost of a trip
-  (dest.estimatedLodgingCostPerDay * trip.duration) + (estimatedFlightCostPerPerson * trip.travelers)  
+find trips taken in the last year
+split trips.date  
+sort by year [0]
 */
+calculateAnnualTripExpenses(trips, destinations) {
+  return trips.reduce((acc,trip) => {
+    const dest = destinations.find(destination => destination.id === trip.destinationID)
+    acc += (dest.estimatedLodgingCostPerDay * trip.duration) 
+    + (dest.estimatedFlightCostPerPerson * trip.travelers)
+    return acc
+  },0)
+}
 
 
 
@@ -19,17 +28,14 @@ find total cost of a trip
 
 
 
-  matchTripToDestination(trips, destinations) {
-    trips.forEach(trip => {
-    return destinations.find(dest => dest.id === trip.destinationID)
-    }
-  }
+matchTripToDestination(trips, destinations) {
+  trips.forEach(trip => {
+  return destinations.find(dest => dest.id === trip.destinationID)
+  })
+}
 
 
   
-  calculateAnnualTripExpenses(trips, destinations) {
-    this.matchTripToDestination(trips, destinations)
-
 
 
 
@@ -41,7 +47,7 @@ find total cost of a trip
     //   return acc
     // },0)
     // total expeses for a given year
-  }
+  
 }
 
 export default Traveler
