@@ -1,3 +1,71 @@
+/* major elements */
+
 body {
+  display: flex;
   background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+  background-color: black;
+  color: hotpink;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  column-gap: 2vw;
+  column-count: 2;
+  column-width: auto;
+  height: auto;
+}
+
+section {
+border: 1px solid white;
+}
+
+article {
+  background-color: black;
+  width: auto;
+  height: auto;
+  padding: 5vw;
+  margin: 1vw;
+}
+
+input {
+  margin-top: 1vh;
+  margin-bottom: 2vh;
+}
+
+/* minor elements */
+
+#sign-in-screen {
+  background-color: indigo;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  top: 40%;
+  left: 50%;
+  margin: 5vw;
+  padding: 5vw 10vw;
+  min-width: fit-content;
+}
+
+.display-section {
+  background-color: black;
+  width: auto;
+  height: auto;
+  padding: 5vw;
+  margin: 1vw;
+}
+
+.destination-image {
+  height: 20vh;
+}
+
+/* aspects */
+
+.hidden {
+  display: none !important;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
