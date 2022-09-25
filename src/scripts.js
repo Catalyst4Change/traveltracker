@@ -1,6 +1,7 @@
 // imports // *include images
 import './css/styles.css'
 import './images/turing-logo.png'
+import './images/emmet-mugshot.png'
 import Traveler from './Traveler'
 import Trip from './Trip'
 import { 
@@ -48,12 +49,24 @@ const elementName = document.getElementById('element-name')
 
 const displayTravelerInfo = (currentTraveler, annualTripExpense) => {
   userInfoPane.innerHTML = `
-  <article>
-  <h1>${currentTraveler.name}</h1>
-  <h2>Travel expenses this year: $${annualTripExpense + Math.round(annualTripExpense/10)}*</h2>
-  <p>*Includes $${Math.round(annualTripExpense/10)} paid to your travel agent.</p>
+  <article class="row">
+  <img src="./src/images/emmet-mugshot.png">
+  <div class="center">
+    <h1>${currentTraveler.name}</h1>
+    <h2>Travel expenses this year: $${annualTripExpense + Math.round(annualTripExpense/10)}*</h2>
+    <p>*Includes $${Math.round(annualTripExpense/10)} paid to your travel agent.</p>
+  </div>
   </article>
   `
+}
+
+const populateTripRequestForm = (destinationsData) => {
+  const destinationsAlphabetical = destinationsData.sort((a,b) => b.destination < a.destination) 
+  destinationsAlphabetical.forEach(dest => {
+    destinationsSelect.innerHTML += `
+  <option value="${dest.id}">${dest.destination}</option>
+  `
+  })
 }
 
 const updateTripCost = () => {
@@ -90,24 +103,6 @@ const submitTripRequest = (event) => {
 }
 tripRequestSubmitButton.addEventListener('click', submitTripRequest)
 
-
-
-
-
-
-const populateTripRequestForm = (destinationsData) => {
-  const destinationsAlphabetical = destinationsData.sort((a,b) => b.destination < a.destination) 
-  destinationsAlphabetical.forEach(dest => {
-    destinationsSelect.innerHTML += `
-  <option value="${dest.id}">${dest.destination}</option>
-  `
-  })
-}
-
-const displayTotalTravelExpenses = () => {
-  annualTripExpense
-}
-
 const displayAllTrips = (trips) => {
   tripDisplayPane.innerHTML = ''
   trips.sort((a,b) => b.numericDate - a.numericDate).forEach(trip => {
@@ -134,9 +129,7 @@ const populateTravelerDashboard = () => {
   displayAllTrips(currentUsersTrips)
   displayTravelerInfo(currentTraveler, annualTripExpense)
   populateTripRequestForm(destinationsData)
-  // add to dom
 }
-// fetch calls
 
 const fetchRemoteData = () => {
   Promise.all([
@@ -152,11 +145,7 @@ const fetchRemoteData = () => {
       destinationsData = data[2].destinations
     })
     .then(() => {
-      // call dom manipulators
       populateTravelerDashboard()
     })
 }
 window.addEventListener('load', fetchRemoteData)
-
-
-// fetch calls
