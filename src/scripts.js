@@ -68,7 +68,10 @@ const updateTripCost = () => {
   const perDiem = selectedDest.estimatedLodgingCostPerDay
   const numDays = tripDuration.value
   const numTravelers = numTravelersSelect.value
-  estTripCost.innerText = `$${perDiem * numDays + numTravelers * flightCost}`
+  const subTotal = perDiem * numDays + numTravelers * flightCost
+  const agentCut = subTotal/10
+  const totalTripCost = subTotal + agentCut
+  estTripCost.innerText = `$${totalTripCost}`
 }
 const tripDuration = document.getElementById('duration')
 tripRequestPane.addEventListener('change', updateTripCost)

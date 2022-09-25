@@ -13,7 +13,7 @@ main {
   column-gap: 2vw;
   column-count: 2;
   column-width: auto;
-  height: 100vw;
+  height: auto;
 }
 
 section {
@@ -26,6 +26,11 @@ article {
   height: auto;
   padding: 5vw;
   margin: 1vw;
+}
+
+input {
+  margin-top: 1vh;
+  margin-bottom: 2vh;
 }
 
 /* minor elements */
@@ -44,7 +49,7 @@ article {
 .display-section {
   background-color: black;
   width: auto;
-  height: 50vh;
+  height: auto;
   padding: 5vw;
   margin: 1vw;
 }

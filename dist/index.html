@@ -31,9 +31,9 @@
 
     <section id="trip-request-pane" class="display-section">
       <form id="trip-request-form" class="center">
-        <p>Request New Trip!</p>
-        <label for="start">Start date:</label>
-        <input type="date" id="start" name="trip-start" min="${today}" aria-required="true">
+        <h2>Request New Trip!</h2>
+        <label for="trip-start">Start date:</label>
+        <input type="date" id="trip-start" name="trip-start" min="${today}" aria-required="true">
 
         <label for="duration">Days of travel:</label>
         <input type="number" id="duration" name="duration" step="1" min="1" aria-required="true">
@@ -49,7 +49,7 @@
         <p>Estimated trip cost:</p>
         <p id="estimated-trip-cost">$0</p>
 
-        <button type="button" id="submit-trip-request-button">submit request</button>
+        <button type="button" id="submit-trip-request-button">SUBMIT REQUEST</button>
 
       </form>
     </section>
