@@ -45,32 +45,23 @@ tripRequestPane.classList.add('hidden')
 tripDisplayPane.classList.add('hidden')
 const verifyUserCredentials = () => {
 
-  // if (unserNameInput.value != "traveler50") {
-  //   alert("Your user name is not recognized. Please try again.")
-  // } else if (passwordInput.value != "travel") {
-  //   alert("Your password is incorrect. Please try again.")
-  // } else {
-  //   // unhide here
-  // }
-  signIn.classList.add('hidden')
-  userInfoPane.classList.remove('hidden')
-  tripRequestPane.classList.remove('hidden')
-  tripDisplayPane.classList.remove('hidden')
+  if (unserNameInput.value != "traveler50") {
+    alert("Your user name is not recognized. Please try again.")
+  } else if (passwordInput.value != "travel") {
+    alert("Your password is incorrect. Please try again.")
+  } else {
+    signIn.classList.add('hidden')
+    userInfoPane.classList.remove('hidden')
+    tripRequestPane.classList.remove('hidden')
+    tripDisplayPane.classList.remove('hidden')
+  }
 }
 signInButton.addEventListener('click', verifyUserCredentials)
-/* 
-get inputs
-absorb information
-verify name/pw
-  if incorrect: alert!
-  if correct: load page info
-
-*/
 
 const today = () => {
   let today = new Date()
   const dd = String(today.getDate()).padStart(2, '0')
-  const mm = String(today.getMonth() + 1).padStart(2, '0') //January is 0!
+  const mm = String(today.getMonth() + 1).padStart(2, '0')
   const yyyy = today.getFullYear()
   
   today = yyyy + '-' + mm + '-' + dd
@@ -112,7 +103,7 @@ const updateTripCost = () => {
 }
 tripRequestPane.addEventListener('change', updateTripCost)
 
-const verifyTripRequestInfo = (event) => {
+const verifyTripRequestInfo = () => {
   if (!tripStartDate.value || tripStartDate.value < today()) {
     alert('Travel date must be today or in the future. We are not a time-travel agency!')
   } else if (!tripDuration.value) {
@@ -126,8 +117,7 @@ const verifyTripRequestInfo = (event) => {
   }
 }
 
-const submitTripRequest = (event) => {
-  // event.preventDefault()
+const submitTripRequest = () => {
   const tripID = allTripsData.length + 1
   const formatedDate = tripStartDate.value.replaceAll('-', '/')
   const newTripRequest = {
@@ -140,13 +130,12 @@ const submitTripRequest = (event) => {
     "status": "pending",
     "suggestedActivities": []
   }
-  console.log(newTripRequest);
   postNewTrip(newTripRequest)
-  fetchRemoteData()
+  
   setTimeout(() => {
-    displayAllTrips
-    alert('Your trip is pending approval from one of our agents.');
-  }, 2000);
+    alert('Your trip will be sent to one of our agents for approval')
+    fetchRemoteData()
+  }, 1000);
 }
 tripRequestSubmitButton.addEventListener('click', verifyTripRequestInfo)
 
