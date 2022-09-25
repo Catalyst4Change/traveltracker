@@ -1,7 +1,7 @@
 // imports // *include images
 import './css/styles.css'
 import './images/turing-logo.png'
-import './images/emmet-mugshot.png'
+import './images/morey-flanders.jpg'
 import Traveler from './Traveler'
 import Trip from './Trip'
 import { 
@@ -21,9 +21,13 @@ let allTripsData
 let destinationsData
 
 // temporary post data //
-const fakeUserID = 7
+const userLoginID = 50
 
 // dom getters
+const signIn = document.getElementById('sign-in-screen')
+const unserNameInput = document.getElementById('username-input')
+const passwordInput = document.getElementById('password-input')
+const signInButton = document.getElementById('sign-in-button')
 const userInfoPane = document.getElementById('user-info-pane')
 const tripRequestPane = document.getElementById('trip-request-pane')
 const tripStartDate = document.getElementById('trip-start')
@@ -36,21 +40,47 @@ const tripDisplayPane = document.getElementById('display-pane')
 
 const elementName = document.getElementById('element-name')
 
+userInfoPane.classList.add('hidden')
+tripRequestPane.classList.add('hidden')
+tripDisplayPane.classList.add('hidden')
+const verifyUserCredentials = () => {
 
-// const today = () => {
-//   let today = new Date()
-//   const dd = String(today.getDate()).padStart(2, '0')
-//   const mm = String(today.getMonth() + 1).padStart(2, '0') //January is 0!
-//   const yyyy = today.getFullYear()
+  // if (unserNameInput.value != "traveler50") {
+  //   alert("Your user name is not recognized. Please try again.")
+  // } else if (passwordInput.value != "travel") {
+  //   alert("Your password is incorrect. Please try again.")
+  // } else {
+  //   // unhide here
+  // }
+  signIn.classList.add('hidden')
+  userInfoPane.classList.remove('hidden')
+  tripRequestPane.classList.remove('hidden')
+  tripDisplayPane.classList.remove('hidden')
+}
+signInButton.addEventListener('click', verifyUserCredentials)
+/* 
+get inputs
+absorb information
+verify name/pw
+  if incorrect: alert!
+  if correct: load page info
+
+*/
+
+const today = () => {
+  let today = new Date()
+  const dd = String(today.getDate()).padStart(2, '0')
+  const mm = String(today.getMonth() + 1).padStart(2, '0') //January is 0!
+  const yyyy = today.getFullYear()
   
-//   today = yyyy + '/' + dd + '/' + mm
-//   return today
-// }
+  today = yyyy + '-' + mm + '-' + dd
+  return today
+}
 
 const displayTravelerInfo = (currentTraveler, annualTripExpense) => {
   userInfoPane.innerHTML = `
   <article class="row">
-  <img src="./src/images/emmet-mugshot.png">
+  <img class="mugshot" src="./images/morey-flanders.jpg">
   <div class="center">
     <h1>${currentTraveler.name}</h1>
     <h2>Travel expenses this year: $${annualTripExpense + Math.round(annualTripExpense/10)}*</h2>
@@ -82,11 +112,24 @@ const updateTripCost = () => {
 }
 tripRequestPane.addEventListener('change', updateTripCost)
 
+const verifyTripRequestInfo = (event) => {
+  if (!tripStartDate.value || tripStartDate.value < today()) {
+    alert('Travel date must be today or in the future. We are not a time-travel agency!')
+  } else if (!tripDuration.value) {
+    alert('Please enter duration of travel.')
+  } else if (!numTravelersSelect.value) {
+    alert('Please enter number of travelers.')
+  } else if (destinationsSelect.value === "0") {
+    alert('Please chose a destination.')
+  } else {
+    submitTripRequest()
+  }
+}
+
 const submitTripRequest = (event) => {
-  event.preventDefault()
+  // event.preventDefault()
   const tripID = allTripsData.length + 1
   const formatedDate = tripStartDate.value.replaceAll('-', '/')
-
   const newTripRequest = {
     "id": tripID,
     "userID": currentTraveler.id,
@@ -100,8 +143,12 @@ const submitTripRequest = (event) => {
   console.log(newTripRequest);
   postNewTrip(newTripRequest)
   fetchRemoteData()
+  setTimeout(() => {
+    displayAllTrips
+    alert('Your trip is pending approval from one of our agents.');
+  }, 2000);
 }
-tripRequestSubmitButton.addEventListener('click', submitTripRequest)
+tripRequestSubmitButton.addEventListener('click', verifyTripRequestInfo)
 
 const displayAllTrips = (trips) => {
   tripDisplayPane.innerHTML = ''
@@ -133,14 +180,14 @@ const populateTravelerDashboard = () => {
 
 const fetchRemoteData = () => {
   Promise.all([
-    fetchSingleTravelerByID(fakeUserID),
+    fetchSingleTravelerByID(userLoginID),
     fetchAllTrips(),
     fetchAllDestinations(),
     ])
     .then(data => {
       currentTraveler = new Traveler(data[0])
       allTripsData = data[1].trips
-      const tripsByTravelerID = data[1].trips.filter(trip => trip.userID === fakeUserID)
+      const tripsByTravelerID = data[1].trips.filter(trip => trip.userID === userLoginID)
       currentUsersTrips = tripsByTravelerID.map(trip => new Trip(trip))
       destinationsData = data[2].destinations
     })

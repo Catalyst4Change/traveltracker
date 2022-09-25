@@ -6,6 +6,7 @@ class Traveler {
     this.name = name
     this.travelerType = travelerType
   }
+
   calculateAnnualTripExpenses(trips, destinations) {
     return trips.reduce((acc,trip) => {
       const dest = destinations.find(destination => destination.id === trip.destinationID)
