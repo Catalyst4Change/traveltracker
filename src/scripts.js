@@ -1,6 +1,8 @@
 // imports // *include images
 import './css/styles.css'
 import './images/turing-logo.png'
+import Traveler from './Traveler'
+import Trip from './Trip'
 import { 
   fetchAllTravelers,
   fetchSingleTravelerByID,
@@ -10,15 +12,12 @@ import {
   postNewDestination,
   postDeleteTrip
 } from "./APIcalls"
-import Traveler from './Traveler'
-import Trip from './Trip'
 
 // global variables //
 let currentTraveler
-let currentUsersTripsData
+let currentUsersTrips
 let allTripsData
 let destinationsData
-let currentTravelersTrips
 
 // temporary post data //
 const fakeUserID = 7
@@ -48,7 +47,7 @@ const elementName = document.getElementById('element-name')
 // }
 
 const displayTravelerInfo = (currentTraveler, annualTripExpense) => {
-  userInfoPane.innerHTML += `
+  userInfoPane.innerHTML = `
   <article>
   <h1>${currentTraveler.name}</h1>
   <h3>Travel expenses this year: $${annualTripExpense + Math.round(annualTripExpense/10)}*</h3>
@@ -110,6 +109,7 @@ const displayTotalTravelExpenses = () => {
 }
 
 const displayAllTrips = (trips) => {
+  tripDisplayPane.innerHTML = ''
   trips.sort((a,b) => b.numericDate - a.numericDate).forEach(trip => {
     const destination = destinationsData.find(dest => dest.id === trip.destinationID)
     tripDisplayPane.innerHTML += `
@@ -122,7 +122,7 @@ const displayAllTrips = (trips) => {
         <p>${trip.duration} Days</p>
         <p>Travelers: ${trip.travelers}</p>
         <p>Reference number: ${trip.id}</p>
-        <p>Status: ${trip.status}</p>
+        <p id="trip-status">Status: ${trip.status}</p>
         <p>${trip.suggestedActivities}</p>
       </article>
     `
@@ -130,8 +130,8 @@ const displayAllTrips = (trips) => {
 }
 
 const populateTravelerDashboard = () => {
-  const annualTripExpense = currentTraveler.calculateAnnualTripExpenses(currentTravelersTrips, destinationsData)
-  displayAllTrips(currentUsersTripsData)
+  const annualTripExpense = currentTraveler.calculateAnnualTripExpenses(currentUsersTrips, destinationsData)
+  displayAllTrips(currentUsersTrips)
   displayTravelerInfo(currentTraveler, annualTripExpense)
   populateTripRequestForm(destinationsData)
   // add to dom
@@ -145,11 +145,10 @@ const fetchRemoteData = () => {
     fetchAllDestinations(),
     ])
     .then(data => {
-      console.log(data)
       currentTraveler = new Traveler(data[0])
       allTripsData = data[1].trips
-      currentTravelersTrips = data[1].trips.filter(trip => trip.userID === fakeUserID)
-      currentUsersTripsData = currentTravelersTrips.map(trip => new Trip(trip))
+      const tripsByTravelerID = data[1].trips.filter(trip => trip.userID === fakeUserID)
+      currentUsersTrips = tripsByTravelerID.map(trip => new Trip(trip))
       destinationsData = data[2].destinations
     })
     .then(() => {
