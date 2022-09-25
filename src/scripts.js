@@ -2,9 +2,13 @@
 import './css/styles.css'
 import './images/turing-logo.png'
 import { 
+  fetchAllTravelers,
   fetchSingleTravelerByID,
   fetchAllTrips,
   fetchAllDestinations,
+  postNewTrip,
+  postNewDestination,
+  postDeleteTrip
 } from "./APIcalls"
 import Traveler from './Traveler'
 import Trip from './Trip'
@@ -12,6 +16,7 @@ import Trip from './Trip'
 // global variables //
 let currentTraveler
 let currentUsersTripsData
+let allTripsData
 let destinationsData
 let currentTravelersTrips
 
@@ -21,48 +26,38 @@ const fakeUserID = 7
 // dom getters
 const userInfoPane = document.getElementById('user-info-pane')
 const tripRequestPane = document.getElementById('trip-request-pane')
-
-const tripDisplayPane = document.getElementById('display-pane')
-const tripRequestSubmitButton = document.getElementById('submit-trip-request-input')
-const destinationsSelect = document.getElementById('destinations-select')
+const tripStartDate = document.getElementById('trip-start')
+const tripDuration = document.getElementById('duration')
 const numTravelersSelect = document.getElementById('travelers')
+const destinationsSelect = document.getElementById('destinations-select')
+const estTripCost = document.getElementById('estimated-trip-cost')
+const tripRequestSubmitButton = document.getElementById('submit-trip-request-button')
+const tripDisplayPane = document.getElementById('display-pane')
 
 const elementName = document.getElementById('element-name')
 
-// event listeners
-// tripRequestSubmitButton.addEventListener('click', currentTraveler.submitTripRequest)
 
-const today = () => {
-  let today = new Date()
-  const dd = String(today.getDate()).padStart(2, '0')
-  const mm = String(today.getMonth() + 1).padStart(2, '0') //January is 0!
-  const yyyy = today.getFullYear()
-
-  today = yyyy + '/' + dd + '/' + mm
-  return today
-}
+// const today = () => {
+//   let today = new Date()
+//   const dd = String(today.getDate()).padStart(2, '0')
+//   const mm = String(today.getMonth() + 1).padStart(2, '0') //January is 0!
+//   const yyyy = today.getFullYear()
+  
+//   today = yyyy + '/' + dd + '/' + mm
+//   return today
+// }
 
 const displayTravelerInfo = (currentTraveler, annualTripExpense) => {
   userInfoPane.innerHTML += `
-    <article>
-      <h1>${currentTraveler.name}</h1>
-      <h3>Travel expenses this year: $${annualTripExpense + Math.round(annualTripExpense/10)}*</h3>
-      <p>*Includes $${Math.round(annualTripExpense/10)} paid to your travel agent.</p>
-    </article>
+  <article>
+  <h1>${currentTraveler.name}</h1>
+  <h3>Travel expenses this year: $${annualTripExpense + Math.round(annualTripExpense/10)}*</h3>
+  <p>*Includes $${Math.round(annualTripExpense/10)} paid to your travel agent.</p>
+  </article>
   `
 }
 
-
-
-
-var select = document.getElementById('destinations-select');
-var value = select.options[select.selectedIndex].value;
-console.log(value);
-
-
-
 const updateTripCost = () => {
-
   const selectedDest = destinationsData.find(dest => dest.id === parseInt(destinationsSelect.value))
   const flightCost = selectedDest.estimatedFlightCostPerPerson
   const perDiem = selectedDest.estimatedLodgingCostPerDay
@@ -73,10 +68,28 @@ const updateTripCost = () => {
   const totalTripCost = subTotal + agentCut
   estTripCost.innerText = `$${totalTripCost}`
 }
-const tripDuration = document.getElementById('duration')
 tripRequestPane.addEventListener('change', updateTripCost)
 
-const estTripCost = document.getElementById('estimated-trip-cost')
+const submitTripRequest = (event) => {
+  event.preventDefault()
+  const tripID = allTripsData.length + 1
+  const formatedDate = tripStartDate.value.replaceAll('-', '/')
+
+  const newTripRequest = {
+    "id": tripID,
+    "userID": currentTraveler.id,
+    "destinationID": parseInt(destinationsSelect.value),
+    "travelers": parseInt(numTravelersSelect.value),
+    "date": formatedDate,
+    "duration": parseInt(tripDuration.value),
+    "status": "pending",
+    "suggestedActivities": []
+  }
+  console.log(newTripRequest);
+  postNewTrip(newTripRequest)
+  fetchRemoteData()
+}
+tripRequestSubmitButton.addEventListener('click', submitTripRequest)
 
 
 
@@ -84,17 +97,12 @@ const estTripCost = document.getElementById('estimated-trip-cost')
 
 
 const populateTripRequestForm = (destinationsData) => {
-  //populate destinations
   const destinationsAlphabetical = destinationsData.sort((a,b) => b.destination < a.destination) 
   destinationsAlphabetical.forEach(dest => {
     destinationsSelect.innerHTML += `
   <option value="${dest.id}">${dest.destination}</option>
   `
   })
-  // get input values
-   console.log(tripDuration.value);
-
-
 }
 
 const displayTotalTravelExpenses = () => {
@@ -137,7 +145,9 @@ const fetchRemoteData = () => {
     fetchAllDestinations(),
     ])
     .then(data => {
+      console.log(data)
       currentTraveler = new Traveler(data[0])
+      allTripsData = data[1].trips
       currentTravelersTrips = data[1].trips.filter(trip => trip.userID === fakeUserID)
       currentUsersTripsData = currentTravelersTrips.map(trip => new Trip(trip))
       destinationsData = data[2].destinations

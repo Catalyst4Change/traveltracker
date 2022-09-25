@@ -55,10 +55,6 @@ const postNewDestination = (destinationData) => {
   .catch(err => console.log('postNewDestination.err:', err))
 }
 
-/* Add new destination	
-{message: 'Destination with id <id> successfully posted', newDestination: <Object with destination info just posted>}
-*/
-
 const postModifyTrip = (modifiedTripData) => {
   fetch('http://localhost:3001/api/v1/updateTrip', {
     method: 'POST', 
@@ -69,10 +65,6 @@ const postModifyTrip = (modifiedTripData) => {
   .then(data => console.log('postModifyTrip.data:', data))
   .catch(err => console.log('postModifyTrip.err:', err))
 }
-/* 
-Only a status or a suggestedActivities property is required for a successful request
-{message: 'Trip #<id> has been modified', updatedTrip: <Object with newly updated data>}
-*/
 
 const postDeleteTrip = (triptoDelete) => {
   const urlPlusID = 'http://localhost:3001/api/v1/trips/' + triptoDelete

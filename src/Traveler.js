@@ -1,3 +1,5 @@
+import Trip from "./Trip"
+
 class Traveler {
   constructor({id, name, travelerType}) {
     this.id = id
@@ -12,11 +14,6 @@ class Traveler {
       return acc
     },0)
   }
-
-  // submitTripRequest() {
-
-  // }
-
 
   /*
   Once I submit the trip request, it will show on my dashboard as “pending” so that the travel agency can approve or deny it.

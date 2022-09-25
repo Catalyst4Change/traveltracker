@@ -10,6 +10,7 @@ class Trip {
     this.status = tripRequest.status, 
     this.suggestedActivities = tripRequest.suggestedActivities
   }
+  
 }
 
 export default Trip
