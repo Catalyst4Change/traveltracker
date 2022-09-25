@@ -50,7 +50,7 @@ const displayTravelerInfo = (currentTraveler, annualTripExpense) => {
   userInfoPane.innerHTML = `
   <article>
   <h1>${currentTraveler.name}</h1>
-  <h3>Travel expenses this year: $${annualTripExpense + Math.round(annualTripExpense/10)}*</h3>
+  <h2>Travel expenses this year: $${annualTripExpense + Math.round(annualTripExpense/10)}*</h2>
   <p>*Includes $${Math.round(annualTripExpense/10)} paid to your travel agent.</p>
   </article>
   `
