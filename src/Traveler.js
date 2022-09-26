@@ -9,13 +9,13 @@ class Traveler {
 
   calculateAnnualTripExpenses(trips, destinations) {
     const today = new Date(Date.now())
-    const oneYearAgo = new Date("2021-09-26")
-    console.log(today.valueOf() - oneYearAgo.valueOf());
+    const oneYearAgo = new Date(new Date(new Date().setFullYear(new Date().getFullYear() - 1)))
+    console.log(oneYearAgo);
+    const oneYearOld = (today.valueOf() - oneYearAgo.valueOf());
 
     const thisYearsTrips = () => {
       return trips.filter(trip => {
-      if (today.valueOf() - trip.numericDate.valueOf() < 31595525117) {
-        console.log("filtered trip", trip);
+      if (today.valueOf() - trip.numericDate.valueOf() < oneYearOld) {
         return trip
       }
     })}

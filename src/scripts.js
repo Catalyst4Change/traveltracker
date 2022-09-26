@@ -1,7 +1,7 @@
 // imports // *include images
 import './css/styles.css'
 import './images/turing-logo.png'
-import './images/morey-flanders.jpg'
+import './images/morey-flanders.png'
 import Traveler from './Traveler'
 import Trip from './Trip'
 import { 
@@ -72,10 +72,10 @@ const today = () => {
 const displayTravelerInfo = (currentTraveler, annualTripExpense) => {
   userInfoPane.innerHTML = `
   <article class="row">
-  <img class="mugshot" src="./images/morey-flanders.jpg">
+  <img class="mugshot" src="./images/morey-flanders.png">
   <div class="center">
     <h1>${currentTraveler.name}</h1>
-    <h2>Travel expenses this year: $${annualTripExpense + Math.round(annualTripExpense/10)}*</h2>
+    <h2>Travel expenses last 12 months: $${annualTripExpense + Math.round(annualTripExpense/10)}*</h2>
     <p>*Includes $${Math.round(annualTripExpense/10)} paid to your travel agent.</p>
   </div>
   </article>
@@ -166,9 +166,6 @@ const populateTravelerDashboard = () => {
   displayAllTrips(currentUsersTrips)
   displayTravelerInfo(currentTraveler, annualTripExpense)
   populateTripRequestForm(destinationsData)
-
-  currentTraveler.findThisYearsTrips(currentUsersTrips)
-  console.log("()", currentTraveler.findThisYearsTrips(currentUsersTrips));
 }
 
 const fetchRemoteData = () => {
