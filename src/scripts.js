@@ -11,6 +11,7 @@ import {
   fetchAllDestinations,
   postNewTrip,
   postNewDestination,
+  postModifyTrip,
   postDeleteTrip
 } from "./APIcalls"
 
