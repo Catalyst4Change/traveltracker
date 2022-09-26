@@ -17,7 +17,7 @@ main {
 }
 
 section {
-border: 1px solid white;
+border: none;
 }
 
 article {
@@ -45,6 +45,10 @@ input {
   padding: 5vw 10vw;
   min-width: fit-content;
   z-index: 10;
+}
+
+#user-info-pane {
+
 }
 
 .mugshot {
@@ -80,4 +84,13 @@ input {
 .row {
   display: flex;
   flex-direction: row;
+  align-items: center;
+}
+
+.solid-border {
+  border: 1px solid white;
+}
+
+.dashed-border {
+  border: 1px dashed white;
 }

@@ -40,6 +40,9 @@ const tripRequestSubmitButton = document.getElementById('submit-trip-request-but
 const tripDisplayPane = document.getElementById('display-pane')
 
 const elementName = document.getElementById('element-name')
+const currentTravelerNameDisplay = document.getElementById('current-traveler-name')
+const yearlyTravelExpensesDisplay = document.getElementById('yearly-travel-expenses')
+const travelAgentCutDisplay = document.getElementById('travel-agent-cut-asterix')
 
 // userInfoPane.classList.add('hidden')
 // tripRequestPane.classList.add('hidden')
@@ -70,16 +73,9 @@ const today = () => {
 }
 
 const displayTravelerInfo = (currentTraveler, annualTripExpense) => {
-  userInfoPane.innerHTML = `
-  <article class="row">
-  <img class="mugshot" src="./images/morey-flanders.png">
-  <div class="center">
-    <h1>${currentTraveler.name}</h1>
-    <h2>Travel expenses last 12 months: $${annualTripExpense + Math.round(annualTripExpense/10)}*</h2>
-    <p>*Includes $${Math.round(annualTripExpense/10)} paid to your travel agent.</p>
-  </div>
-  </article>
-  `
+  currentTravelerNameDisplay.innerText = `${currentTraveler.name}`
+  yearlyTravelExpensesDisplay.innerText = `Travel expenses last 12 months*: $${annualTripExpense + Math.round(annualTripExpense/10)}`
+  travelAgentCutDisplay.innerText = `*Includes $${Math.round(annualTripExpense/10)} paid to your travel agent.`
 }
 
 const populateTripRequestForm = (destinationsData) => {
