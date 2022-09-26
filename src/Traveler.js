@@ -15,23 +15,6 @@ class Traveler {
       return acc
     },0)
   }
-
-  /*
-  Once I submit the trip request, it will show on my dashboard as “pending” so that the travel agency can approve or deny it.
-  * create new trip instance w data
-    assign status:pending
-
-    push to trips API
-
-
-  */
-
-  // matchTripToDestination(trips, destinations) {
-  //   trips.forEach(trip => {
-  //   return destinations.find(dest => dest.id === trip.destinationID)
-  //   })
-  // }
-
 }
 
 export default Traveler

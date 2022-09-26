@@ -2,7 +2,7 @@ import chai from 'chai';
 import Trip from '../src/Trip';
 const expect = chai.expect;
 
-describe('See if Trip tests are running', function() {
+describe('Trip Class', function() {
   let newTrip
   beforeEach(function() {
     newTrip = new Trip({
@@ -17,10 +17,6 @@ describe('See if Trip tests are running', function() {
     });
   });
 
-
-  it('should return true', function() {
-    expect(true).to.equal(true);
-  });
   it('should create an instance of Trip', () => {
     expect(newTrip.id).to.deep.equal(420)
   })
