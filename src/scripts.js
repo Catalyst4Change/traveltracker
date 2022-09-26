@@ -41,21 +41,21 @@ const tripDisplayPane = document.getElementById('display-pane')
 
 const elementName = document.getElementById('element-name')
 
-userInfoPane.classList.add('hidden')
-tripRequestPane.classList.add('hidden')
-tripDisplayPane.classList.add('hidden')
-const verifyUserCredentials = () => {
-
-  if (unserNameInput.value != "traveler50") {
-    alert("Your user name is not recognized. Please try again.")
-  } else if (passwordInput.value != "travel") {
-    alert("Your password is incorrect. Please try again.")
-  } else {
+// userInfoPane.classList.add('hidden')
+// tripRequestPane.classList.add('hidden')
+// tripDisplayPane.classList.add('hidden')
+const verifyUserCredentials = (event) => {
+  event.preventDefault()
+//   if (unserNameInput.value != "traveler50") {
+//     alert("Your user name is not recognized. Please try again.")
+//   } else if (passwordInput.value != "travel") {
+//     alert("Your password is incorrect. Please try again.")
+//   } else {
     signIn.classList.add('hidden')
-    userInfoPane.classList.remove('hidden')
-    tripRequestPane.classList.remove('hidden')
-    tripDisplayPane.classList.remove('hidden')
-  }
+//     userInfoPane.classList.remove('hidden')
+//     tripRequestPane.classList.remove('hidden')
+//     tripDisplayPane.classList.remove('hidden')
+//   }
 }
 signInButton.addEventListener('click', verifyUserCredentials)
 
@@ -166,6 +166,9 @@ const populateTravelerDashboard = () => {
   displayAllTrips(currentUsersTrips)
   displayTravelerInfo(currentTraveler, annualTripExpense)
   populateTripRequestForm(destinationsData)
+
+  currentTraveler.findThisYearsTrips(currentUsersTrips)
+  console.log("()", currentTraveler.findThisYearsTrips(currentUsersTrips));
 }
 
 const fetchRemoteData = () => {
@@ -186,3 +189,4 @@ const fetchRemoteData = () => {
     })
 }
 window.addEventListener('load', fetchRemoteData)
+export default today

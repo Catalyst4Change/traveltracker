@@ -8,7 +8,19 @@ class Traveler {
   }
 
   calculateAnnualTripExpenses(trips, destinations) {
-    return trips.reduce((acc,trip) => {
+    const today = new Date(Date.now())
+    const oneYearAgo = new Date("2021-09-26")
+    console.log(today.valueOf() - oneYearAgo.valueOf());
+
+    const thisYearsTrips = () => {
+      return trips.filter(trip => {
+      if (today.valueOf() - trip.numericDate.valueOf() < 31595525117) {
+        console.log("filtered trip", trip);
+        return trip
+      }
+    })}
+
+    return thisYearsTrips().reduce((acc,trip) => {
       const dest = destinations.find(destination => destination.id === trip.destinationID)
       acc += (dest.estimatedLodgingCostPerDay * trip.duration) 
       + (dest.estimatedFlightCostPerPerson * trip.travelers)
