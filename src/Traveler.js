@@ -10,7 +10,6 @@ class Traveler {
   calculateAnnualTripExpenses(trips, destinations) {
     const today = new Date(Date.now())
     const oneYearAgo = new Date(new Date(new Date().setFullYear(new Date().getFullYear() - 1)))
-    console.log(oneYearAgo);
     const oneYearOld = (today.valueOf() - oneYearAgo.valueOf());
 
     const thisYearsTrips = () => {

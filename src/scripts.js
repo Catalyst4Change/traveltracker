@@ -37,28 +37,31 @@ const numTravelersSelect = document.getElementById('travelers')
 const destinationsSelect = document.getElementById('destinations-select')
 const estTripCost = document.getElementById('estimated-trip-cost')
 const tripRequestSubmitButton = document.getElementById('submit-trip-request-button')
-const tripDisplayPane = document.getElementById('display-pane')
+const tripDisplayPane = document.getElementById('trip-display-pane')
 
 const elementName = document.getElementById('element-name')
 const currentTravelerNameDisplay = document.getElementById('current-traveler-name')
 const yearlyTravelExpensesDisplay = document.getElementById('yearly-travel-expenses')
 const travelAgentCutDisplay = document.getElementById('travel-agent-cut-asterix')
 
+// ARIA //
+document.getElementById('submit-trip-request-button').tabIndex = 5
+
 // userInfoPane.classList.add('hidden')
 // tripRequestPane.classList.add('hidden')
 // tripDisplayPane.classList.add('hidden')
 const verifyUserCredentials = (event) => {
   event.preventDefault()
-//   if (unserNameInput.value != "traveler50") {
-//     alert("Your user name is not recognized. Please try again.")
-//   } else if (passwordInput.value != "travel") {
-//     alert("Your password is incorrect. Please try again.")
-//   } else {
+  if (unserNameInput.value != "traveler50") {
+    alert("Your user name is not recognized. Please try again.")
+  } else if (passwordInput.value != "travel") {
+    alert("Your password is incorrect. Please try again.")
+  } else {
     signIn.classList.add('hidden')
-//     userInfoPane.classList.remove('hidden')
-//     tripRequestPane.classList.remove('hidden')
-//     tripDisplayPane.classList.remove('hidden')
-//   }
+    userInfoPane.classList.remove('hidden')
+    tripRequestPane.classList.remove('hidden')
+    tripDisplayPane.classList.remove('hidden')
+  }
 }
 signInButton.addEventListener('click', verifyUserCredentials)
 
@@ -141,7 +144,7 @@ const displayAllTrips = (trips) => {
   trips.sort((a,b) => b.numericDate - a.numericDate).forEach(trip => {
     const destination = destinationsData.find(dest => dest.id === trip.destinationID)
     tripDisplayPane.innerHTML += `
-    <article>
+      <article class="trip-card">
         <img class="destination-image" 
         src="${destination.image}" 
         alt="${destination.alt}">
