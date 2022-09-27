@@ -7,6 +7,8 @@ class Traveler {
     this.travelerType = travelerType
   }
 
+  
+
   calculateAnnualTripExpenses(trips, destinations) {
     const today = new Date(Date.now())
     const oneYearAgo = new Date(new Date(new Date().setFullYear(new Date().getFullYear() - 1)))

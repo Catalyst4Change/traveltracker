@@ -7,8 +7,8 @@
   <title>Travel Tracker</title>
 </head>
 <body class="full-page">  
-  <!-- sign in overlay -->
-  <section id="sign-in-screen" class="center hidden">
+<!-- sign in -->
+  <section id="sign-in-screen" class="center">
     <h1 id="sign-in-title">TravelCo. Travel Co.</h1>
     <form id="sign-in-form" class="center">
       <p>Please sign-in to continue.</p> 
@@ -16,18 +16,17 @@
       <input class="sign-in-input" id="username-input" type="text" placeholder="Username">
       <label for="password-input">Password:</label>
       <input class="sign-in-input" id="password-input" type="text" placeholder="Password">
-      <button type="submit" id="sign-in-button">SIGN-IN</button>
-      <h2 id="sign-in-feedback" class="hidden">all good</h2>
+      <button tabindex="0" type="submit" id="sign-in-button">SIGN-IN</button>
     </form>
   </section>
 
-  <!-- main section -->
+<!-- main section -->
 
   <main class="container">
-    <!-- user info -->
+<!-- user info -->
     <section id="user-info-pane" class="display-section">
       <article class="row">
-        <img class="mugshot" src="./images/morey-flanders.png" alt="doctored photo of Ned Flanders with an eel head as a visual pun on the name 'Morey Flanders' ">
+        <img id="mugshot" src="./images/morey-flanders.png" alt="doctored photo of Ned Flanders with an eel head as a visual pun on the name 'Morey Flanders' ">
         <div class="center">
           <h2 id="current-traveler-name"></h2>
           <p id="yearly-travel-expenses"></p>
@@ -40,32 +39,31 @@
       <form id="trip-request-form" class="center">
         <h2>Request New Trip!</h2>
         <label for="trip-start">Start date:</label>
-        <input tabindex="1" type="date" id="trip-start" name="trip-start" min="${today}" aria-required="true">
+        <input type="date" id="trip-start" name="trip-start" min="${today}" aria-required="true">
 
         <label for="duration">Days of travel:</label>
-        <input tabindex="2" type="number" id="duration" name="duration" step="1" min="1" aria-required="true">
+        <input type="number" id="duration" name="duration" step="1" min="1" aria-required="true">
 
         <label for="travelers">Number of travelers:</label>
-        <input tabindex="3" type="number" id="travelers" name="travelers" step="1" min="1" aria-required="true">
+        <input type="number" id="travelers" name="travelers" step="1" min="1" aria-required="true">
 
         <label for="destinations-select">Select destination:</label>
-        <select tabindex="4" id="destinations-select" name="destinations" size="1" aria-required="true">
+        <select id="destinations-select" name="destinations" size="1" aria-required="true">
           <option value="0">Choose a destination</option>
         </select>
 
         <p>Estimated trip cost:</p>
         <p id="estimated-trip-cost">$0</p>
         
-        <button tabindex="5" type="button" id="submit-trip-request-button">SUBMIT REQUEST</button>
+        <button tabindex="0" type="button" id="submit-trip-request-button">SUBMIT REQUEST</button>
         
       </form>
     </section>
-    <!-- trip desiplay -->
+<!-- trip desiplay -->
     <section id="trip-display-pane" class="display-section">
     </section>
   </main>
 
-  <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
   <script src="bundle.js"></script>
 
 </body>

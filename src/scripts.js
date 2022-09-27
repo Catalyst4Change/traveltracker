@@ -5,14 +5,10 @@ import './images/morey-flanders.png'
 import Traveler from './Traveler'
 import Trip from './Trip'
 import { 
-  fetchAllTravelers,
   fetchSingleTravelerByID,
   fetchAllTrips,
   fetchAllDestinations,
   postNewTrip,
-  postNewDestination,
-  postModifyTrip,
-  postDeleteTrip
 } from "./APIcalls"
 
 // global variables //
@@ -24,12 +20,18 @@ let destinationsData
 // temporary post data //
 const userLoginID = 50
 
-// dom getters
+// dom getters //
+// sign-in 
 const signIn = document.getElementById('sign-in-screen')
 const unserNameInput = document.getElementById('username-input')
 const passwordInput = document.getElementById('password-input')
 const signInButton = document.getElementById('sign-in-button')
+// user pane
 const userInfoPane = document.getElementById('user-info-pane')
+const currentTravelerNameDisplay = document.getElementById('current-traveler-name')
+const yearlyTravelExpensesDisplay = document.getElementById('yearly-travel-expenses')
+const travelAgentCutDisplay = document.getElementById('travel-agent-cut-asterix')
+// trip request pane
 const tripRequestPane = document.getElementById('trip-request-pane')
 const tripStartDate = document.getElementById('trip-start')
 const tripDuration = document.getElementById('duration')
@@ -37,19 +39,16 @@ const numTravelersSelect = document.getElementById('travelers')
 const destinationsSelect = document.getElementById('destinations-select')
 const estTripCost = document.getElementById('estimated-trip-cost')
 const tripRequestSubmitButton = document.getElementById('submit-trip-request-button')
+// trips display
 const tripDisplayPane = document.getElementById('trip-display-pane')
 
-const elementName = document.getElementById('element-name')
-const currentTravelerNameDisplay = document.getElementById('current-traveler-name')
-const yearlyTravelExpensesDisplay = document.getElementById('yearly-travel-expenses')
-const travelAgentCutDisplay = document.getElementById('travel-agent-cut-asterix')
 
 // ARIA //
-document.getElementById('submit-trip-request-button').tabIndex = 5
+document.getElementById('submit-trip-request-button').tabIndex = 0
 
-// userInfoPane.classList.add('hidden')
-// tripRequestPane.classList.add('hidden')
-// tripDisplayPane.classList.add('hidden')
+userInfoPane.classList.add('hidden')
+tripRequestPane.classList.add('hidden')
+tripDisplayPane.classList.add('hidden')
 const verifyUserCredentials = (event) => {
   event.preventDefault()
   if (unserNameInput.value != "traveler50") {
@@ -184,5 +183,6 @@ const fetchRemoteData = () => {
       populateTravelerDashboard()
     })
 }
+
 window.addEventListener('load', fetchRemoteData)
 export default today
