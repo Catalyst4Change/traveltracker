@@ -148,7 +148,7 @@ const displayAllTrips = (trips) => {
         <img class="destination-image" 
         src="${destination.image}" 
         alt="${destination.alt}">
-        <h3>${destination.destination}</h3>
+        <h2>${destination.destination}</h2>
         <p>Date: ${trip.date}</p>
         <p>${trip.duration} Days</p>
         <p>Travelers: ${trip.travelers}</p>
