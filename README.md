@@ -20,6 +20,7 @@ I learned CSS Grid during this project and used a breakpoint to realign the elem
 
 ### Accessibility:
 All form input items are tabbable. I used steppers instead of text input fields for numerical values for simplicity. Assuming no one is traveling for months or bringing hundreds of friends with them, it should not be an issue.
+
 One problem I did have was making the 'Submit Trip Request' button tabbable. For whatever reason, even though I added `<tabindex="0">`, it just would not focus. However, both submit buttons work upon pressing Enter within the form.
 This project has zero errors in WAVE and a 100% score in LightHouse.
 Accessibility features can be tested to the "accessability" branch.
@@ -27,6 +28,7 @@ Accessibility features can be tested to the "accessability" branch.
 ## What I'm proud of:
 The whole thing. With more time, I would have done more CSS-wise. However the simplistic, bold color scheme is kinda fun and I enjoyed taking a minute to make a creepy fish-man for the user avatar.
 I'm proud that everything works as expected with no errors. 
+
 I really really struggled getting started with this project. It seemed overwhelming and I couldn't find a place to start. At first I just kinda did a little bit of everything and got lost in it. With a pep-talk from my mentor I slowed down and devised a more deliberate plan to 'eat the elephant'.
 
 ## Lessons Learned:
