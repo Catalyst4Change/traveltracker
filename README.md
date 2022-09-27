@@ -6,7 +6,7 @@ A user (traveler) has the ability to log in with specific credentials. One canno
 
 ![login gif](https://github.com/Catalyst4Change/traveltracker/blob/main/TTlogIn.gif)
 
-Once logged in, the traveler can view their all-time trip history as well as their expendatures for the last year. They can also create a new trip and have it immediately available on their list of trips.
+Once logged in, the traveler can view their all-time trip history as well as their expendatures for the last year. They can also create a new trip and have it immediately available on their list of trips. The estimated trip cost will calculate live so traveler can view it before commiting to purchase.
 
 ![gif of creating new trip](https://github.com/Catalyst4Change/traveltracker/blob/main/TTnewTrip.gif)
 
