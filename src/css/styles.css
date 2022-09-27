@@ -1,36 +1,74 @@
 /* major elements */
 
 body {
-  display: flex;
   background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
   background-color: black;
   color: hotpink;
+  display: flex;
+  justify-content:center;
+  font-size: 2em;
 }
 
-main {
-  display: flex;
-  flex-direction: column;
-  column-gap: 2vw;
-  column-count: 2;
-  column-width: auto;
-  height: auto;
+.container {
+  width: 80vw;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  grid-template-areas: 
+    "user trips"
+    "request trips";
+}
+
+@media only screen and (max-width:700px) {
+  .container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+    "user"
+    "request"
+    "trips";
+  }
 }
 
 section {
-border: 1px solid white;
+  border: none;
 }
 
 article {
   background-color: black;
-  width: auto;
-  height: auto;
-  padding: 5vw;
+  padding: 1vw;
   margin: 1vw;
 }
 
 input {
+  min-height: 20px;
   margin-top: 1vh;
   margin-bottom: 2vh;
+  height: auto;
+}
+
+select {
+  margin-top: 2%;
+  margin-bottom: 0%;
+  font-size: 2em;
+}
+
+button {
+  background-color:blueviolet;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color:magenta;
+}
+
+button:focus {
+  background-color:magenta;
 }
 
 /* minor elements */
@@ -44,6 +82,29 @@ input {
   margin: 5vw;
   padding: 5vw 10vw;
   min-width: fit-content;
+  z-index: 10;
+}
+
+#user-info-pane {
+ grid-area: user;
+}
+
+#trip-request-pane {
+  grid-area: request;
+}
+
+#trip-display-pane {
+  grid-area: trips;
+}
+
+.trip-card {
+  padding: 0;
+  margin: 0;
+}
+
+.mugshot {
+  height: auto;
+  width: 100%;
 }
 
 .display-section {
@@ -55,7 +116,7 @@ input {
 }
 
 .destination-image {
-  height: 20vh;
+  width: 100%;
 }
 
 /* aspects */
@@ -67,5 +128,14 @@ input {
 .center {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-items: center;
 }
+
+.solid-border {
+  border: 1px solid white;
+}
+
+.dashed-border {
+  border: 1px dashed white;
+}
+

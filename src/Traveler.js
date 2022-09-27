@@ -6,31 +6,26 @@ class Traveler {
     this.name = name
     this.travelerType = travelerType
   }
+
   calculateAnnualTripExpenses(trips, destinations) {
-    return trips.reduce((acc,trip) => {
+    const today = new Date(Date.now())
+    const oneYearAgo = new Date(new Date(new Date().setFullYear(new Date().getFullYear() - 1)))
+    const oneYearOld = (today.valueOf() - oneYearAgo.valueOf());
+
+    const thisYearsTrips = () => {
+      return trips.filter(trip => {
+      if (today.valueOf() - trip.numericDate.valueOf() < oneYearOld) {
+        return trip
+      }
+    })}
+
+    return thisYearsTrips().reduce((acc,trip) => {
       const dest = destinations.find(destination => destination.id === trip.destinationID)
       acc += (dest.estimatedLodgingCostPerDay * trip.duration) 
       + (dest.estimatedFlightCostPerPerson * trip.travelers)
       return acc
     },0)
   }
-
-  /*
-  Once I submit the trip request, it will show on my dashboard as “pending” so that the travel agency can approve or deny it.
-  * create new trip instance w data
-    assign status:pending
-
-    push to trips API
-
-
-  */
-
-  // matchTripToDestination(trips, destinations) {
-  //   trips.forEach(trip => {
-  //   return destinations.find(dest => dest.id === trip.destinationID)
-  //   })
-  // }
-
 }
 
 export default Traveler

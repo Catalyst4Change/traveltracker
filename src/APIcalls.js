@@ -36,13 +36,6 @@ const postNewTrip = (tripData) => {
   .then(data => console.log('postNewTrip.data:', data))
   .catch(err => console.log('postNewTrip.err:', err))
 }
-/* 
-Add new trip	
-WHAT DOES THIS MEAN
-Sample Successful Response'
-{message: 'Trip with id <id> successfully posted', 
-newTrip: <Object with trip info just posted>}
-*/
 
 const postNewDestination = (destinationData) => {
   fetch('http://localhost:3001/api/v1/destinations', {
@@ -77,8 +70,6 @@ const postDeleteTrip = (triptoDelete) => {
   .catch(err => console.log('postDeleteTrip.err:', err))
 }
 
-// message: Trip # has been deleted
-
 export {
   fetchAllTravelers,
   fetchSingleTravelerByID,
@@ -86,5 +77,6 @@ export {
   fetchAllDestinations,
   postNewTrip,
   postNewDestination,
+  postModifyTrip,
   postDeleteTrip
 }

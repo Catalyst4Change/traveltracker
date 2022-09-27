@@ -1,6 +1,7 @@
 // imports // *include images
 import './css/styles.css'
 import './images/turing-logo.png'
+import './images/morey-flanders.png'
 import Traveler from './Traveler'
 import Trip from './Trip'
 import { 
@@ -10,6 +11,7 @@ import {
   fetchAllDestinations,
   postNewTrip,
   postNewDestination,
+  postModifyTrip,
   postDeleteTrip
 } from "./APIcalls"
 
@@ -20,9 +22,13 @@ let allTripsData
 let destinationsData
 
 // temporary post data //
-const fakeUserID = 7
+const userLoginID = 50
 
 // dom getters
+const signIn = document.getElementById('sign-in-screen')
+const unserNameInput = document.getElementById('username-input')
+const passwordInput = document.getElementById('password-input')
+const signInButton = document.getElementById('sign-in-button')
 const userInfoPane = document.getElementById('user-info-pane')
 const tripRequestPane = document.getElementById('trip-request-pane')
 const tripStartDate = document.getElementById('trip-start')
@@ -31,29 +37,57 @@ const numTravelersSelect = document.getElementById('travelers')
 const destinationsSelect = document.getElementById('destinations-select')
 const estTripCost = document.getElementById('estimated-trip-cost')
 const tripRequestSubmitButton = document.getElementById('submit-trip-request-button')
-const tripDisplayPane = document.getElementById('display-pane')
+const tripDisplayPane = document.getElementById('trip-display-pane')
 
 const elementName = document.getElementById('element-name')
+const currentTravelerNameDisplay = document.getElementById('current-traveler-name')
+const yearlyTravelExpensesDisplay = document.getElementById('yearly-travel-expenses')
+const travelAgentCutDisplay = document.getElementById('travel-agent-cut-asterix')
 
+// ARIA //
+document.getElementById('submit-trip-request-button').tabIndex = 5
 
-// const today = () => {
-//   let today = new Date()
-//   const dd = String(today.getDate()).padStart(2, '0')
-//   const mm = String(today.getMonth() + 1).padStart(2, '0') //January is 0!
-//   const yyyy = today.getFullYear()
+// userInfoPane.classList.add('hidden')
+// tripRequestPane.classList.add('hidden')
+// tripDisplayPane.classList.add('hidden')
+const verifyUserCredentials = (event) => {
+  event.preventDefault()
+  if (unserNameInput.value != "traveler50") {
+    alert("Your user name is not recognized. Please try again.")
+  } else if (passwordInput.value != "travel") {
+    alert("Your password is incorrect. Please try again.")
+  } else {
+    signIn.classList.add('hidden')
+    userInfoPane.classList.remove('hidden')
+    tripRequestPane.classList.remove('hidden')
+    tripDisplayPane.classList.remove('hidden')
+  }
+}
+signInButton.addEventListener('click', verifyUserCredentials)
+
+const today = () => {
+  let today = new Date()
+  const dd = String(today.getDate()).padStart(2, '0')
+  const mm = String(today.getMonth() + 1).padStart(2, '0')
+  const yyyy = today.getFullYear()
   
-//   today = yyyy + '/' + dd + '/' + mm
-//   return today
-// }
+  today = yyyy + '-' + mm + '-' + dd
+  return today
+}
 
 const displayTravelerInfo = (currentTraveler, annualTripExpense) => {
-  userInfoPane.innerHTML = `
-  <article>
-  <h1>${currentTraveler.name}</h1>
-  <h3>Travel expenses this year: $${annualTripExpense + Math.round(annualTripExpense/10)}*</h3>
-  <p>*Includes $${Math.round(annualTripExpense/10)} paid to your travel agent.</p>
-  </article>
+  currentTravelerNameDisplay.innerText = `${currentTraveler.name}`
+  yearlyTravelExpensesDisplay.innerText = `Travel expenses last 12 months*: $${annualTripExpense + Math.round(annualTripExpense/10)}`
+  travelAgentCutDisplay.innerText = `*Includes $${Math.round(annualTripExpense/10)} paid to your travel agent.`
+}
+
+const populateTripRequestForm = (destinationsData) => {
+  const destinationsAlphabetical = destinationsData.sort((a,b) => b.destination < a.destination) 
+  destinationsAlphabetical.forEach(dest => {
+    destinationsSelect.innerHTML += `
+  <option value="${dest.id}">${dest.destination}</option>
   `
+  })
 }
 
 const updateTripCost = () => {
@@ -69,11 +103,23 @@ const updateTripCost = () => {
 }
 tripRequestPane.addEventListener('change', updateTripCost)
 
-const submitTripRequest = (event) => {
-  event.preventDefault()
+const verifyTripRequestInfo = () => {
+  if (!tripStartDate.value || tripStartDate.value < today()) {
+    alert('Travel date must be today or in the future. We are not a time-travel agency!')
+  } else if (!tripDuration.value) {
+    alert('Please enter duration of travel.')
+  } else if (!numTravelersSelect.value) {
+    alert('Please enter number of travelers.')
+  } else if (destinationsSelect.value === "0") {
+    alert('Please chose a destination.')
+  } else {
+    submitTripRequest()
+  }
+}
+
+const submitTripRequest = () => {
   const tripID = allTripsData.length + 1
   const formatedDate = tripStartDate.value.replaceAll('-', '/')
-
   const newTripRequest = {
     "id": tripID,
     "userID": currentTraveler.id,
@@ -84,40 +130,25 @@ const submitTripRequest = (event) => {
     "status": "pending",
     "suggestedActivities": []
   }
-  console.log(newTripRequest);
   postNewTrip(newTripRequest)
-  fetchRemoteData()
+  
+  setTimeout(() => {
+    alert('Your trip will be sent to one of our agents for approval')
+    fetchRemoteData()
+  }, 1000);
 }
-tripRequestSubmitButton.addEventListener('click', submitTripRequest)
-
-
-
-
-
-
-const populateTripRequestForm = (destinationsData) => {
-  const destinationsAlphabetical = destinationsData.sort((a,b) => b.destination < a.destination) 
-  destinationsAlphabetical.forEach(dest => {
-    destinationsSelect.innerHTML += `
-  <option value="${dest.id}">${dest.destination}</option>
-  `
-  })
-}
-
-const displayTotalTravelExpenses = () => {
-  annualTripExpense
-}
+tripRequestSubmitButton.addEventListener('click', verifyTripRequestInfo)
 
 const displayAllTrips = (trips) => {
   tripDisplayPane.innerHTML = ''
   trips.sort((a,b) => b.numericDate - a.numericDate).forEach(trip => {
     const destination = destinationsData.find(dest => dest.id === trip.destinationID)
     tripDisplayPane.innerHTML += `
-    <article>
+      <article class="trip-card">
         <img class="destination-image" 
         src="${destination.image}" 
         alt="${destination.alt}">
-        <h3>${destination.destination}</h3>
+        <h2>${destination.destination}</h2>
         <p>Date: ${trip.date}</p>
         <p>${trip.duration} Days</p>
         <p>Travelers: ${trip.travelers}</p>
@@ -134,29 +165,24 @@ const populateTravelerDashboard = () => {
   displayAllTrips(currentUsersTrips)
   displayTravelerInfo(currentTraveler, annualTripExpense)
   populateTripRequestForm(destinationsData)
-  // add to dom
 }
-// fetch calls
 
 const fetchRemoteData = () => {
   Promise.all([
-    fetchSingleTravelerByID(fakeUserID),
+    fetchSingleTravelerByID(userLoginID),
     fetchAllTrips(),
     fetchAllDestinations(),
     ])
     .then(data => {
       currentTraveler = new Traveler(data[0])
       allTripsData = data[1].trips
-      const tripsByTravelerID = data[1].trips.filter(trip => trip.userID === fakeUserID)
+      const tripsByTravelerID = data[1].trips.filter(trip => trip.userID === userLoginID)
       currentUsersTrips = tripsByTravelerID.map(trip => new Trip(trip))
       destinationsData = data[2].destinations
     })
     .then(() => {
-      // call dom manipulators
       populateTravelerDashboard()
     })
 }
 window.addEventListener('load', fetchRemoteData)
-
-
-// fetch calls
+export default today
