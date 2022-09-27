@@ -3,8 +3,10 @@
 
 ## Usage:
 A user (traveler) has the ability to log in with specific credentials. One cannot log in without the correct username and password (Traveler50, travel).
+
 ![login gif](https://github.com/Catalyst4Change/traveltracker/blob/main/TTlogIn.gif)
 Once logged in, the traveler can view their all-time trip history as well as their expendatures for the last year. They can also create a new trip and have it immediately available on their list of trips.
+
 ![gif of creating new trip](https://github.com/Catalyst4Change/traveltracker/blob/main/TTnewTrip.gif)
 
 ## Features:
