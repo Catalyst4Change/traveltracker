@@ -1,7 +1,7 @@
 import chai from 'chai';
 import Traveler from '../src/Traveler';
+import Trip from '../src/Trip';
 const expect = chai.expect;
-
 
 
 describe('Traveler Class', function() {
@@ -19,16 +19,21 @@ describe('Traveler Class', function() {
       "userID": 1,
       "destinationID": 1,
       "travelers": 1,
-      "date": "2020/11/01",
+      "date": "2021/11/01",
+      "numericDate": new Date("2021-11-01"),
+
       "duration": 17,
       "status": "approved",
       "suggestedActivities": []
-    }, {
+    }
+    , {
       "id": 2,
       "userID": 1,
       "destinationID": 2,
       "travelers": 1,
-      "date": "2019/09/28",
+      "date": "2022/11/28",
+      "numericDate": new Date("2022-11-28"),
+
       "duration": 4,
       "status": "approved",
       "suggestedActivities": []
@@ -38,6 +43,8 @@ describe('Traveler Class', function() {
       "destinationID": 3,
       "travelers": 1,
       "date": "2020/08/31",
+      "numericDate": new Date("2020-08-31"),
+
       "duration": 16,
       "status": "approved",
       "suggestedActivities": []
@@ -75,8 +82,13 @@ describe('Traveler Class', function() {
       "travelerType": "intrepid-loser"
     });
   });
+
+  it('should calculate todays date', () => {
+    expect(newTraveler.today()).to.equal('2022-09-27')
+  })
+  // refactor to be dynamic
+
   it('should calculate annual trip expenses', () => {
-    
-    expect(newTraveler.calculateAnnualTripExpenses(trips, destinations)).to.equal(16450)
+    expect(newTraveler.calculateAnnualTripExpenses(trips, destinations)).to.equal(9170)
   })
 });

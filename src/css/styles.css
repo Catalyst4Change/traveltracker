@@ -97,14 +97,15 @@ button:focus {
   grid-area: trips;
 }
 
+#mugshot {
+  width: 100%;
+}
+
+/* dynamic elements */
+
 .trip-card {
   padding: 0;
   margin: 0;
-}
-
-.mugshot {
-  height: auto;
-  width: 100%;
 }
 
 .display-section {
@@ -130,12 +131,3 @@ button:focus {
   flex-direction: column;
   justify-items: center;
 }
-
-.solid-border {
-  border: 1px solid white;
-}
-
-.dashed-border {
-  border: 1px dashed white;
-}
-

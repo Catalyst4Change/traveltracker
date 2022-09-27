@@ -7,14 +7,24 @@ class Traveler {
     this.travelerType = travelerType
   }
 
+  today() {
+    let today = new Date()
+    const dd = String(today.getDate()).padStart(2, '0')
+    const mm = String(today.getMonth() + 1).padStart(2, '0')
+    const yyyy = today.getFullYear()
+    
+    today = yyyy + '-' + mm + '-' + dd
+    return today
+  }
+  
   calculateAnnualTripExpenses(trips, destinations) {
-    const today = new Date(Date.now())
+    const brandNewDay = new Date(this.today())
     const oneYearAgo = new Date(new Date(new Date().setFullYear(new Date().getFullYear() - 1)))
-    const oneYearOld = (today.valueOf() - oneYearAgo.valueOf());
+    const oneYearOld = (brandNewDay.valueOf() - oneYearAgo.valueOf());
 
     const thisYearsTrips = () => {
       return trips.filter(trip => {
-      if (today.valueOf() - trip.numericDate.valueOf() < oneYearOld) {
+      if (brandNewDay.valueOf() - trip.numericDate.valueOf() < oneYearOld) {
         return trip
       }
     })}
