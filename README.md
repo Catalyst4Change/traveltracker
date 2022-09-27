@@ -20,7 +20,7 @@ I learned CSS Grid during this project and used a breakpoint to realign the elem
 
 ### Accessibility:
 All form input items are tabbable. I used steppers instead of text input fields for numerical values for simplicity. Assuming no one is traveling for months or bringing hundreds of friends with them, it should not be an issue.
-One problem I did have was making the 'Submit Trip Request' button tabbable. For whatever reason, even though I added `<tabindex="0">`, it just would not focus. However, both submit buttons work on pressing Enter in the form.
+One problem I did have was making the 'Submit Trip Request' button tabbable. For whatever reason, even though I added `<tabindex="0">`, it just would not focus. However, both submit buttons work upon pressing Enter within the form.
 This project has zero errors in WAVE and a 100% score in LightHouse.
 Accessibility features can be tested to the "accessability" branch.
 
