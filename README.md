@@ -34,3 +34,8 @@ I really really struggled getting started with this project. It seemed overwhelm
 ## Lessons Learned:
 I know that alerts are not the best way to handle information delivery to the user, and in the future would use more subtle methods.
 Nested, string-based dates are very difficult to work with.
+
+## Technologies Used:
+- HTML
+- CSS: grid
+- JavaScript: webPack
