@@ -1,3 +1,5 @@
+import Trip from "./Trip"
+
 class Traveler {
   constructor({id, name, travelerType}) {
     this.id = id
@@ -17,9 +19,7 @@ class Traveler {
   
   calculateAnnualTripExpenses(trips, destinations) {
     const brandNewDay = new Date(this.today())
-    console.log("brandNewDay", brandNewDay);
     const oneYearAgo = new Date(new Date(new Date().setFullYear(new Date().getFullYear() - 1)))
-    console.log("oneyearago", oneYearAgo);
     const oneYearOld = (brandNewDay.valueOf() - oneYearAgo.valueOf());
 
     const thisYearsTrips = () => {
