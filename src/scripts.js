@@ -46,10 +46,10 @@ const tripDisplayPane = document.getElementById('trip-display-pane')
 // ARIA //
 document.getElementById('submit-trip-request-button').tabIndex = 0
 
-userInfoPane.classList.add('hidden')
-tripRequestPane.classList.add('hidden')
-tripDisplayPane.classList.add('hidden')
-// signIn.classList.add('hidden')
+// userInfoPane.classList.add('hidden')
+// tripRequestPane.classList.add('hidden')
+// tripDisplayPane.classList.add('hidden')
+signIn.classList.add('hidden')
 
 const verifyUserCredentials = (event) => {
   event.preventDefault()
