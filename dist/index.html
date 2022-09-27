@@ -39,7 +39,7 @@
       <form id="trip-request-form" class="center">
         <h2>Request New Trip!</h2>
         <label for="trip-start">Start date:</label>
-        <input type="date" id="trip-start" name="trip-start" min="${today}" aria-required="true">
+        <input type="date" id="trip-start" name="trip-start" min="${currentTraveler.today()}" aria-required="true">
 
         <label for="duration">Days of travel:</label>
         <input type="number" id="duration" name="duration" step="1" min="1" aria-required="true">

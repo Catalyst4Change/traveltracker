@@ -64,15 +64,6 @@ const verifyUserCredentials = (event) => {
 }
 signInButton.addEventListener('click', verifyUserCredentials)
 
-const today = () => {
-  let today = new Date()
-  const dd = String(today.getDate()).padStart(2, '0')
-  const mm = String(today.getMonth() + 1).padStart(2, '0')
-  const yyyy = today.getFullYear()
-  
-  today = yyyy + '-' + mm + '-' + dd
-  return today
-}
 
 const displayTravelerInfo = (currentTraveler, annualTripExpense) => {
   currentTravelerNameDisplay.innerText = `${currentTraveler.name}`
@@ -103,7 +94,7 @@ const updateTripCost = () => {
 tripRequestPane.addEventListener('change', updateTripCost)
 
 const verifyTripRequestInfo = () => {
-  if (!tripStartDate.value || tripStartDate.value < today()) {
+  if (!tripStartDate.value || tripStartDate.value < currentTraveler.today()) {
     alert('Travel date must be today or in the future. We are not a time-travel agency!')
   } else if (!tripDuration.value) {
     alert('Please enter duration of travel.')
@@ -185,4 +176,3 @@ const fetchRemoteData = () => {
 }
 
 window.addEventListener('load', fetchRemoteData)
-export default today
